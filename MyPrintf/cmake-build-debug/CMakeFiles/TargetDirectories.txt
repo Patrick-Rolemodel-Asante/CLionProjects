@@ -1,0 +1,3 @@
+/home/rol/CLionProjects/MyPrintf/cmake-build-debug/CMakeFiles/MyPrintf.dir
+/home/rol/CLionProjects/MyPrintf/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/rol/CLionProjects/MyPrintf/cmake-build-debug/CMakeFiles/rebuild_cache.dir
