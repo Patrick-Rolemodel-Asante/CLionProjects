@@ -18,6 +18,7 @@ int _myprintf(const char *fmt, ...) {
             fmt++;
             chars_printed = validate(fmt,&chars_printed,substitutes);
         }
+        if (*fmt == '#' || *fmt == 'l') ++fmt;
         fmt++;
     }
     va_end(substitutes);

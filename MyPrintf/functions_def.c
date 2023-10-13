@@ -49,6 +49,14 @@ int format_FLOAT(va_list args) {
 
 
 
+
+
+
+
+
+
+
+
 int format_PERCENT(va_list empty) {
     char c = '%';
     write(1, &c, 1); // Write the percent sign to standard output
@@ -57,70 +65,66 @@ int format_PERCENT(va_list empty) {
 
 
 
-//int format_DOUBLE(va_list args) {
-//    double arg = va_arg(args, double);
-//    char buffer[64]; // Adjust the buffer size as needed
-//    int len = snprintf(buffer, sizeof(buffer), "%.17f", arg);
-//    write(1, buffer, len); // Write the double to standard output
-//    return len;
-//}
-
-
 
 int format_DOUBLE(va_list args) {
     double arg = va_arg(args, double);
-    int digits = 0;
+    int digits_printed = 0;
 
     // Handle negative numbers
     if (arg < 0) {
-        int written = write(1, "-", 1);
-        if (written < 0) {
-            perror("Error writing to standard output");
-            return -1;
-        }
-        digits += written;
+        write(1, "-", 1);
+        digits_printed++;
         arg = -arg; // Make arg positive for further processing
     }
 
+
     // Convert the integer part to a string
     int int_part = (int)arg;
-    int int_digits = 1; // At least one digit
-    int temp = int_part;
-    while (temp >= 10) {
-        temp /= 10;
-        int_digits++;
+    char* int_str = malloc(int_part * sizeof(char)); // Adjust the buffer size as needed
+    if (int_str == NULL) {
+        stop("Error allocating memory");
     }
-    char int_str[int_digits];
-    snprintf(int_str, sizeof(int_str), "%d", int_part);
+    int i = 0;
+    do {
+        int_str[i++] = '0' + (int_part % 10); // Get the rightmost digit
+        int_part /= 10; // Remove the rightmost digit
+    } while (int_part != 0);
+    int_str[i] = '\0'; // Add the null terminator
 
-    int written = write(1, int_str, int_digits);
-    if (written < 0) {
-        perror("Error writing to standard output");
-        return -1;
+    // Reverse the string from the do-while loop above
+    for (int j = 0; j < i / 2; j++) {
+        char temp = int_str[j]; // Store the left character in a temporary variable
+        int_str[j] = int_str[i - j - 1]; // Replace the left character with the right character
+        int_str[i - j - 1] = temp; // Replace the right character with the stored left character
     }
-    digits += written;
+
+    write(1, int_str, i);
+    digits_printed += i; // Increment the number of digits printed
 
     // Print the decimal point
-    written = write(1, ".", 1);
-    if (written < 0) {
-        perror("Error writing to standard output");
-        return -1;
-    }
-    digits += written;
+    write(1, ".", 1);
+    digits_printed++; // Increment the number of digits printed
 
     // Convert the fractional part to a string
-    double frac_part = arg - int_part;
-    char frac_str[15]; // Adjust the buffer size as needed
-    snprintf(frac_str, sizeof(frac_str), "%.6f", frac_part); // Six decimal places
-    written = write(1, frac_str + 2, 7); // Skip the "0." part
-    if (written < 0) {
-        perror("Error writing to standard output");
-        return -1;
+    double frac_part = arg - int_part; // Get the fractional part
+    char frac_str[7]; // Adjust the buffer size as needed
+    for (i = 0; i < 6; i++) {  // Print up to 6 digits
+        frac_part *= 10; // Shift the decimal point
+        frac_str[i] = '0' + ((int)frac_part % 10); // Get the rightmost digit
+        frac_part -= (int)frac_part; // Remove the rightmost digit
     }
-    digits += written;
+    frac_str[6] = '\0'; // Add the null terminator
 
-    return digits;
+    write(1, frac_str, 6);
+    digits_printed += 6;
+
+    free(int_str);
+
+    return digits_printed;
 }
+
+
+
 
 
 
@@ -150,17 +154,35 @@ int validate(const char *fmt, int *chars_printed, va_list substitutes){
             case 'f':
                 *chars_printed += (*printFunction[FLOAT])(substitutes);
                 break;
-            case 'X':
+            case 'X':{
+                unsigned long int num = va_arg(substitutes, unsigned long int);
+                *chars_printed += write_me(&num, 16, 'X');
+                break;
+            }
             case 'x': {
                 unsigned long int num = va_arg(substitutes, unsigned long int);
-                *chars_printed += my_hex(fmt, &num);
+                *chars_printed += write_me(&num, 16, 'x');
                 break;
             }
             case 'o': {
                 unsigned long int num = va_arg(substitutes, unsigned long int);
-                *chars_printed += my_oct(fmt, &num);
+                *chars_printed += write_me(&num, 8, 'o');
                 break;
             }
+            case '#':{
+                ++fmt;
+                if (*fmt == 'x' || *fmt == 'X') {
+                    unsigned long int num = va_arg(substitutes, unsigned long int);
+                    *chars_printed = my_hex(fmt, &num);
+                } else if (*fmt == 'o') {
+                    unsigned long int num = va_arg(substitutes, unsigned long int);
+                    *chars_printed = my_oct(&num);
+                } else {
+                    stop("Invalid format specifier");
+                }
+                break;
+            }
+
         }
     }
     return (*chars_printed);

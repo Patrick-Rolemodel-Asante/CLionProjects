@@ -1,0 +1,3 @@
+/home/rol/CLionProjects/Printf Peer Pairing Project/cmake-build-debug/CMakeFiles/Printf_Peer_Pairing_Project.dir
+/home/rol/CLionProjects/Printf Peer Pairing Project/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/rol/CLionProjects/Printf Peer Pairing Project/cmake-build-debug/CMakeFiles/rebuild_cache.dir

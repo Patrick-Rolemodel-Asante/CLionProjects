@@ -35,8 +35,10 @@ int format_DOUBLE(va_list args);
 int validate(const char *fmt, int *chars_printed, va_list substitutes);
 
 char  *change_to_baseN(unsigned long int num, int new_base);
-int my_hex(const char *fmt, unsigned long int *num);
-int my_oct(const char *fmt, unsigned long *num);
+int my_hex(const char *fmt, unsigned long *num);
+int my_oct(const unsigned long *num);
+int write_me(const unsigned long *num, int base, char letter);
+void lower_case(char * new_num);
 
 #endif // MYPRINTF_MAIN_H
 
