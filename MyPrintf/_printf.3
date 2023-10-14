@@ -1,0 +1,117 @@
+// write a man page for the _printf function
+.TH _PRINTF 3 "version 1.0.0" "14th October, 2023 2:51PM" "_PRINTF Man Page"
+.SH NAME
+_printf - mimics the functionalities of the printf function in stdio.h
+
+.SH SYNOPSIS
+_printf FORMAT [ARGUMENT]...
+_printf [OPTION]
+.B #include <main.h>
+.sp
+.B int _printf(your_arguments);
+
+.SH DESCRIPTION
+This section provides a detailed description of what your function does,
+the input arguments, and the expected output.
+
+.SH FORMAT
+controls the outpust as in C printf function. Interpreted sequences are:
+.sp
+.B \n - newline
+.sp
+.B \t - horizontal tab
+.sp
+.B \v - vertical tab
+.sp
+.B \b - backspace
+.sp
+.B \r - carriage return
+.sp
+.B \f - form feed
+.sp
+.B \a - alert (bell)
+.sp
+.B \0 - null character
+.sp
+.B \\ - backslash
+.sp
+.B \[0-7]{1,3} - the sequence of characters matching the regular expression is a character in octal notation
+.sp
+.B \x[0-9A-Fa-f]{1,2} - the sequence of characters matching the regular expression is a character in hexadecimal notation
+.sp
+.B \c - a null byte (‘\0’) is written
+.sp
+.B % - a % is written. No argument is converted. The complete conversion specification is ‘%%’.
+.sp
+.B %b - the unsigned int argument is converted to binary
+.sp
+.B %c - the int argument is converted to an unsigned char, and the resulting character is written
+.sp
+.B %d - the int argument is converted to signed decimal notation
+.sp
+.B %i - the int argument is converted to signed decimal notation
+.sp
+.B %o - the unsigned int argument is converted to unsigned octal notation
+.sp
+.B %s - the char * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (but not including) a terminating null byte ('\0')
+.sp
+.B %u - the unsigned int argument is converted to unsigned decimal notation
+.sp
+.B %x - the unsigned int argument is converted to unsigned hexadecimal notation (using lowercase letters)
+.sp
+.B %X - the unsigned int argument is converted to unsigned hexadecimal notation (using uppercase letters)
+.sp
+.B %r - the char * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (but not including) a terminating null byte ('\0'). The characters are written in reverse order
+.sp
+.B %R - the char * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (but not including) a terminating null byte ('\0'). Non-printable characters (ASCII values < 32 or >= 127) are printed using the \xhh or \ooo notation. The characters are written in reverse order
+.sp
+.B %S - the char * argument is expected to be a pointer to an array of character type (pointer to a string). Characters from the array are written up to (but not including) a terminating null byte ('\0'). Non-printable characters (ASCII values < 32 or >= 127) are printed using the \xhh or \ooo notation
+.sp
+.B %p - the void * pointer argument is printed in hexadecimal (as if by %#x or %#lx)
+.sp
+.B %lf - the double argument is converted in floating-point notation
+.sp
+.B %b - the unsigned int argument is converted to binary
+.sp
+.B %f - the double argument is converted in floating-point notation
+
+
+.SH RETURN VALUE
+Describe what the function returns, including any error codes.
+
+
+.SH EXAMPLES
+Provide usage examples for your function.
+
+.SH SEE ALSO
+Optionally, you can list other related functions or man pages here.
+
+.SH AUTHOR
+Your Name <your@email.com>
+
+.SH BUGS
+Mention any known issues or limitations of your function.
+
+.SH COPYRIGHT
+Your copyright or license information.
+
+.SH NOTES
+Additional notes or important information about your function.
+
+The function can be used on any operating system, but it has been tested on Ubuntu 18.04 LTS and 20.04 LTS
+
+.SH REPORTING BUGS
+Even though the function has been tested, in the realization of any bug, please contact us at:
+alxse19.1@gmail.com
+ebenezerghartey123@gmail.com
+@Prof_Role1 on twitter
+@Prof_Role on twitter
+
+.SH SEE ALSO
+You can also read about the printf function in C using the commands:
+man 1 printf
+man 3 printf
+You can read more about the funtion in stdio.h here:
+https://www.tutorialspoint.com/c_standard_library/stdio_h.htm or
+https://devdocs.io/c/io/fprintf
+https://www.gnu.org/software/coreutils/printf

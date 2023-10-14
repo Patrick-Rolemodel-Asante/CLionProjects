@@ -20,7 +20,7 @@ typedef enum {
 
 
 
-int _myprintf(const char *format, ...);
+int _printf(const char *fmt, ...);
 
 void stop(const char *str);
 void check_errors(const char *fmt);
@@ -34,7 +34,7 @@ int format_DOUBLE(va_list args);
 
 int validate(const char *fmt, int *chars_printed, va_list substitutes);
 
-char  *change_to_baseN(unsigned long int num, int new_base);
+char *change_to_baseN(unsigned long int num, int new_base);
 int my_hex(const char *fmt, unsigned long *num);
 int my_oct(const unsigned long *num);
 int write_me(const unsigned long *num, int base, char letter);

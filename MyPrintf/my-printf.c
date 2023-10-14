@@ -3,7 +3,7 @@
 // the return value is the number of characters printed
 // optimize the code because I am not getting the correct number of characters printed
 
-int _myprintf(const char *fmt, ...) {
+int _printf(const char *fmt, ...) {
     check_errors(fmt);
 
     int chars_printed = 0;
@@ -16,7 +16,7 @@ int _myprintf(const char *fmt, ...) {
             chars_printed++;
         } else {
             fmt++;
-            chars_printed = validate(fmt,&chars_printed,substitutes);
+            validate(fmt,&chars_printed,substitutes);
         }
         if (*fmt == '#' || *fmt == 'l') ++fmt;
         fmt++;
