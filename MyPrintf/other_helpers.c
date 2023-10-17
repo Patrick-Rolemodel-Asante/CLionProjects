@@ -1,8 +1,11 @@
-//
-// Created by rol on 10/10/23.
-//
 #include "main.h"
-
+/**
+ * validate - validates the format specifier
+ * @fmt: format specifier
+ * @chars_printed: number of characters printed
+ * @substitutes: list of arguments
+ * Return: number of characters printed
+ */
 char  *change_to_baseN(unsigned long int num, int new_base){
     char all_nums[] = "0123456789ABCDEF";
     char *res;
@@ -25,6 +28,24 @@ char  *change_to_baseN(unsigned long int num, int new_base){
 }
 
 
+/** my_bin - converts a number to binary
+ * @num: number to convert
+ * Return: number of characters printed
+ */
+
+int my_bin(const unsigned long *num) {
+    char *new_num = change_to_baseN(*num, 2);
+    write(1, new_num, strlen(new_num));
+    free(new_num);
+    return (int) strlen(new_num);
+}
+
+
+/** my_hex - converts a number to hexadecimal
+ * @fmt: format specifier
+ * @num: number to convert
+ * Return: number of characters printed
+ */
 int my_hex(const char *fmt, unsigned long *num) {
     char *new_num = change_to_baseN(*num, 16);
 
@@ -52,6 +73,10 @@ int my_hex(const char *fmt, unsigned long *num) {
 }
 
 
+/** my_oct - converts a number to octal
+ * @num: number to convert
+ * Return: number of characters printed
+ */
 int my_oct(const unsigned long *num) {
     char *new_num = change_to_baseN(*num, 8);
     char prefix_upp[300] = "0";
@@ -63,6 +88,12 @@ int my_oct(const unsigned long *num) {
 }
 
 
+/** write_me - writes the number to the standard output
+ * @num: number to write
+ * @base: base to convert to
+ * @letter: letter to use
+ * Return: number of characters printed
+ */
 int write_me(const unsigned long *num, int base, char letter) {
     char *new_num = change_to_baseN(*num, base);
     if (letter == 'x') lower_case(new_num);
@@ -73,10 +104,3 @@ int write_me(const unsigned long *num, int base, char letter) {
     return (new_num_len);
 }
 
-void lower_case(char * new_num) {
-    for (register_t i = 0; i < strlen(new_num); i++) {
-        if (new_num[i] >= 'A' && new_num[i] <= 'Z') {
-            new_num[i] += 32;  // Convert uppercase to lowercase
-        }
-    }
-}

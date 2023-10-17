@@ -6,8 +6,12 @@ set(CMAKE_C_STANDARD 11)
 add_executable(MyPrintf main.c
         main.h
         printf-errors.c
-        my-printf.c
-        functions_def.c
+        _printf.c
+        custom-conversion-specifiers.c
         other_helpers.c
+        non-custom-conversion-specifiers.c
+        control-printf.c
+        other-custom-conversion-specifiers.c
+        help_validate_function.c
 
 )
