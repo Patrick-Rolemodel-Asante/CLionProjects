@@ -83,26 +83,6 @@ int validate(const char *fmt, int *chars_printed, va_list substitutes)
 		    unsigned long int num = va_arg(substitutes, unsigned long int);
 		    *chars_printed = my_oct(&num);
 		}
-		else
-		{
-		    stop("Invalid format specifier");
-		}
-		break;
-	    case 'r':
-	    {
-		char *str = va_arg(substitutes, char *);
-		chars_printed = (int *) string_reverse(str);
-		break;
-	    }
-	    case 'R':
-	    {
-		char *str = va_arg(substitutes, char *);
-		rot13(str);
-		break;
-	    }
-	    case 'S':
-		*chars_printed = handle_custom_s(substitutes);
-		break;
 	    default:
 		write(1, "%", 1);
 		write(1, &(*fmt), 1);

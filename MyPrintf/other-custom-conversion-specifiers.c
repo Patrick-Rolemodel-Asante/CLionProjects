@@ -107,29 +107,24 @@ int format_PERCENT(va_list empty)
 
 int format_UNSIGNED(va_list args)
 {
-    unsigned int arg = va_arg(args, unsigned int);
-    int len = 0;
+    unsigned int arg = va_arg(args, unsigned int);  // Use unsigned int
 
-    int temp = arg;
     char int_str[32];
     int int_len = 0;
 
-    if (temp == 0)
+    if (arg == 0) {
 	int_str[int_len++] = '0';
-    else
-    {
-	while (temp > 0)
-	{
-	    int_str[int_len++] = '0' + (temp % 10);
-	    temp /= 10;
+    }
+    else {
+	while (arg > 0 && int_len < 32) {
+	    int_str[int_len++] = '0' + (arg % 10);
+	    arg /= 10;
 	}
     }
 
-    for (int i = int_len - 1; i >= 0; i--)
-    {
+    for (int i = int_len - 1; i >= 0; i--) {
 	write(1, &int_str[i], 1);
-	len++;
     }
 
-    return (len);
+    return int_len;  // Return the length of the formatted string
 }
