@@ -19,7 +19,7 @@ int _printf(const char *fmt, ...)
 	if (*fmt == '%')
 	{
 	    fmt++;
-	    validate(fmt, &charsPrinted, substitutes);
+	    validate1(fmt, &charsPrinted, substitutes);
 	}
 	else
 	{

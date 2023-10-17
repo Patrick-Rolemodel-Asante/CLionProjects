@@ -7,32 +7,32 @@
  * Return: the number of characters printed
  */
 
-int handle_address(const char *fmt, unsigned long *num) {
-    char *new_num = change_to_baseN(*num, 16);
+int handleAddress(char *fmt, unsigned long *num) {
+    char *new_num = changeToBaseN(*num, 16);
 
     if (!new_num) {
         // Handle memory allocation error.
         stop("Memory allocation error");
     }
     char prefix_low[300] = "0x";
-    lower_case(new_num);
+    lowerCase(new_num);
     write(1, prefix_low, strlen(prefix_low));
     write(1, new_num, strlen(new_num));
     int total_length = (int) (strlen(prefix_low) + strlen(new_num));
-    free(new_num);  // Remember to free the memory allocated in change_to_baseN.
+    free(new_num);  // Remember to free the memory allocated in changeToBaseN.
     return total_length;
 
 }
 
 
 /**
- * handle_custom_s - handles the custom specifier S
+ * handleCustomS - handles the custom specifier S
  * @substitutes: the list of arguments
  *
  * Return: the number of characters printed
  */
 
-int handle_custom_s(va_list substitutes) {
+int handleCustomS(va_list substitutes) {
     char *str = va_arg(substitutes, char *);
     int len = 0;
     int i;
@@ -53,7 +53,7 @@ int handle_custom_s(va_list substitutes) {
         if (str[i] < 32 || str[i] >= 127) {
             *temp++ = '\\';
             *temp++ = 'x';
-            hex = convert_to_hex(str[i]);
+            hex = convertToHex(str[i]);
             *temp++ = hex[0];
             *temp++ = hex[1];
             free(hex);
@@ -67,13 +67,13 @@ int handle_custom_s(va_list substitutes) {
 }
 
 /**
- * convert_to_hex - converts a number to hexadecimal
+ * convertToHex - converts a number to hexadecimal
  * @num: the number to convert
  *
  * Return: the hexadecimal number
  */
 
-char *convert_to_hex(int num) {
+char *convertToHex(int num) {
     int i;
     char *hex = malloc(sizeof(char) * 3);
 

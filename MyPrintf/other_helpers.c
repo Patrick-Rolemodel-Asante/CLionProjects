@@ -6,7 +6,7 @@
  * @substitutes: list of arguments
  * Return: number of characters printed
  */
-char  *change_to_baseN(unsigned long int num, int new_base){
+char  *changeToBaseN(unsigned long int num, int new_base){
     char all_nums[] = "0123456789ABCDEF";
     char *res;
 
@@ -15,7 +15,7 @@ char  *change_to_baseN(unsigned long int num, int new_base){
         res[0] = all_nums[num];
         res[1] = '\0';
     } else {
-        char *rem = change_to_baseN(num / new_base, new_base);
+        char *rem = changeToBaseN(num / new_base, new_base);
         unsigned int len = strlen(rem);
         res = malloc(len + 2);
         strcpy(res, rem);
@@ -28,26 +28,26 @@ char  *change_to_baseN(unsigned long int num, int new_base){
 }
 
 
-/** my_bin - converts a number to binary
+/** myBin - converts a number to binary
  * @num: number to convert
  * Return: number of characters printed
  */
 
-int my_bin(const unsigned long *num) {
-    char *new_num = change_to_baseN(*num, 2);
+int myBin(unsigned long *num) {
+    char *new_num = changeToBaseN(*num, 2);
     write(1, new_num, strlen(new_num));
     free(new_num);
     return (int) strlen(new_num);
 }
 
 
-/** my_hex - converts a number to hexadecimal
+/** myHex - converts a number to hexadecimal
  * @fmt: format specifier
  * @num: number to convert
  * Return: number of characters printed
  */
-int my_hex(const char *fmt, unsigned long *num) {
-    char *new_num = change_to_baseN(*num, 16);
+int myHex(char *fmt, unsigned long *num) {
+    char *new_num = changeToBaseN(*num, 16);
 
     if (!new_num) {
         // Handle memory allocation error.
@@ -56,11 +56,11 @@ int my_hex(const char *fmt, unsigned long *num) {
 
     if (*fmt == 'x') {
         char prefix_low[300] = "0x";
-        lower_case(new_num);
+	lowerCase(new_num);
         write(1, prefix_low, strlen(prefix_low));
         write(1, new_num, strlen(new_num));
         int total_length = (int) (strlen(prefix_low) + strlen(new_num));
-        free(new_num);  // Remember to free the memory allocated in change_to_baseN.
+        free(new_num);  // Remember to free the memory allocated in changeToBaseN.
         return total_length;
     }
 
@@ -68,17 +68,17 @@ int my_hex(const char *fmt, unsigned long *num) {
     strncat(prefix_upp, new_num, strlen(new_num));
     write(1, prefix_upp, strlen(prefix_upp));
     int total_length = (int) strlen(prefix_upp);
-    free(new_num);  // Remember to free the memory allocated in change_to_baseN.
+    free(new_num);  // Remember to free the memory allocated in changeToBaseN.
     return total_length - 1;
 }
 
 
-/** my_oct - converts a number to octal
+/** myOct - converts a number to octal
  * @num: number to convert
  * Return: number of characters printed
  */
-int my_oct(const unsigned long *num) {
-    char *new_num = change_to_baseN(*num, 8);
+int myOct(unsigned long *num) {
+    char *new_num = changeToBaseN(*num, 8);
     char prefix_upp[300] = "0";
     strncat(prefix_upp, new_num, strlen(new_num) + 2);
     write(1, prefix_upp, strlen(prefix_upp));
@@ -88,19 +88,18 @@ int my_oct(const unsigned long *num) {
 }
 
 
-/** write_me - writes the number to the standard output
+/** writeMe - writes the number to the standard output
  * @num: number to write
  * @base: base to convert to
  * @letter: letter to use
  * Return: number of characters printed
  */
-int write_me(const unsigned long *num, int base, char letter) {
-    char *new_num = change_to_baseN(*num, base);
-    if (letter == 'x') lower_case(new_num);
+int writeMe(unsigned long *num, int base, char letter) {
+    char *new_num = changeToBaseN(*num, base);
+    if (letter == 'x') lowerCase(new_num);
     int new_num_len = (int) (strlen(new_num));
     write(1, new_num, new_num_len);
 
     free(new_num);
     return (new_num_len);
 }
-

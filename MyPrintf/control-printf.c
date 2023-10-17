@@ -31,7 +31,7 @@ int validate(const char *fmt, int *chars_printed, va_list substitutes)
 	    case 'b':
 	    {
 		unsigned long int num = va_arg(substitutes, unsigned long int);
-		*chars_printed = my_bin(&num);
+		*chars_printed = myBin(&num);
 		break;
 	    }
 	    case 's':
@@ -51,24 +51,24 @@ int validate(const char *fmt, int *chars_printed, va_list substitutes)
 	    case 'X':
 	    {
 		unsigned long int num = va_arg(substitutes, unsigned long int);
-		*chars_printed = write_me(&num, 16, 'X');
+		*chars_printed = writeMe(&num, 16, 'X');
 		break;
 	    }
 	    case 'x':
 	    {
 		unsigned long int num = va_arg(substitutes, unsigned long int);
-		*chars_printed += write_me(&num, 16, 'x');
+		*chars_printed += writeMe(&num, 16, 'x');
 		break;
 	    }
 	    case 'o':
 	    {
 		unsigned long int num = va_arg(substitutes, unsigned long int);
-		*chars_printed = write_me(&num, 8, 'o');
+		*chars_printed = writeMe(&num, 8, 'o');
 		break;
 	    }
 	    case 'p': {
 		unsigned long int num = va_arg(substitutes, unsigned long int);
-		*chars_printed = handle_address(fmt, &num);
+		*chars_printed = handleAddress(fmt, &num);
 		break;
 	    }
 	    case '#':
@@ -76,12 +76,12 @@ int validate(const char *fmt, int *chars_printed, va_list substitutes)
 		if (*fmt == 'x' || *fmt == 'X')
 		{
 		    unsigned long int num = va_arg(substitutes, unsigned long int);
-		    *chars_printed = my_hex(fmt, &num);
+		    *chars_printed = myHex(fmt, &num);
 		}
 		else if (*fmt == 'o')
 		{
 		    unsigned long int num = va_arg(substitutes, unsigned long int);
-		    *chars_printed = my_oct(&num);
+		    *chars_printed = myOct(&num);
 		}
 	    default:
 		write(1, "%", 1);
@@ -90,4 +90,17 @@ int validate(const char *fmt, int *chars_printed, va_list substitutes)
 	}
     }
     return (*chars_printed);
+}
+
+
+int validate1(const char *fmt, int *chars_printed, va_list substitutes)
+{
+    if (*fmt == 'l' && *(fmt + 1) == 'f')
+	return (handleLfCase(&fmt, chars_printed, substitutes));
+    else if (*fmt == '#')
+	return (handleHashCase(&fmt, chars_printed, substitutes));
+    else if (*fmt == 'S')
+	return (handleSCase(&fmt, chars_printed, substitutes));
+    else
+	return (handleSwitchCases(&fmt, chars_printed, substitutes));
 }

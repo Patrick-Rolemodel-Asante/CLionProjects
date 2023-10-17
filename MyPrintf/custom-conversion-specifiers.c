@@ -53,12 +53,12 @@ int string_reverse(char *str)
 }
 
 /**
- * lower_case - Converts uppercase letters to lowercase in a string.
+ * lowerCase - Converts uppercase letters to lowercase in a string.
  * @new_num: The string to convert.
  *
  * This function converts uppercase letters in a string to lowercase.
  */
-void lower_case(char *new_num)
+void lowerCase(char *new_num)
 {
     int i = 0;
 

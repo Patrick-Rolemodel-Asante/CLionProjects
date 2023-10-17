@@ -32,18 +32,18 @@ void check_errors(const char *fmt);
 
 int validate(const char *fmt, int *chars_printed, va_list substitutes);
 
-char *change_to_baseN(unsigned long int num, int new_base);
-int my_hex(const char *fmt, unsigned long *num);
-int my_oct(const unsigned long *num);
-int write_me(const unsigned long *num, int base, char letter);
-void lower_case(char * new_num);
+char *changeToBaseN(unsigned long int num, int new_base);
+int myHex(char *fmt, unsigned long *num);
+int myOct(unsigned long *num);
+int writeMe(unsigned long *num, int base, char letter);
+void lowerCase(char * new_num);
 int _printf(const char *format, ...);
-int handle_address(const char *fmt, unsigned long *num);
-int my_bin(const unsigned long *num);
+int handleAddress(char *fmt, unsigned long *num);
+int myBin(unsigned long *num);
 int string_reverse(char *str);
 void rot13(char *s);
-int handle_custom_s(va_list substitutes);
-char *convert_to_hex(int num);
+int handleCustomS(va_list substitutes);
+char *convertToHex(int num);
 
 
 int format_PERCENT(va_list empty);
@@ -53,12 +53,13 @@ int format_CHAR(va_list args);
 int format_INT(va_list args);
 int format_DOUBLE(va_list args);
 int format_UNSIGNED(va_list args);
-void handle_lf_case(const char **fmt, int *chars_printed, va_list substitutes);
-void handle_switch_cases(const char **fmt, int *chars_printed, va_list
+int validate1(const char *fmt, int *chars_printed, va_list substitutes);
+int handleLfCase(char **fmt, int *chars_printed, va_list substitutes);
+int handleSwitchCases(char *fmt, int *chars_printed, va_list
 substitutes);
-void handle_other_cases(const char **fmt, int *chars_printed, va_list
+int handleSCase(char **fmt, int *chars_printed, va_list
 substitutes);
-void handle_hash_case(const char **fmt, int *chars_printed, va_list
+int handleHashCase(char **fmt, int *chars_printed, va_list
 substitutes);
 
 #endif // MYPRINTF_MAIN_H
