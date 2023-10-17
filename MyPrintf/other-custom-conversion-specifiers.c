@@ -109,12 +109,6 @@ int format_UNSIGNED(va_list args)
 {
     unsigned int arg = va_arg(args, unsigned int);
     int len = 0;
-    if (arg < 0)
-    {
-	write(1, "-", 1);
-	len++;
-	arg = -arg;
-    }
 
     int temp = arg;
     char int_str[32];
