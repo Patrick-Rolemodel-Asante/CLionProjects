@@ -34,13 +34,17 @@ int handleSwitchCases(char *fmt, int *chars_printed, va_list substitutes) {
 	    *chars_printed = (*printFunction[INT])(substitutes);
 	    break;
 	case 'f':
+	{
 	    *chars_printed += (*printFunction[FLOAT])(substitutes);
 	    (*fmt)++;
 	    break;
+	}
 	default:
+	{
 	    write(1, "%", 1);
 	    write(1, fmt, 1);
 	    *chars_printed += 2;
+	}
     }
     return (*chars_printed);
 }
@@ -53,14 +57,14 @@ int handleSCase(char **fmt, int *chars_printed, va_list substitutes) {
 
 
 int handleHashCase(char **fmt, int *chars_printed, va_list substitutes) {
-    if (**fmt == 'x' || **fmt == 'X') {
+    if (*(*fmt + 1) == 'x' || *(*fmt + 1) == 'X') {
 	unsigned long int num = va_arg(substitutes, unsigned long int);
 	*chars_printed = myHex(*fmt, &num);  // Fixed function name.
     } else if (**fmt == 'o') {
 	unsigned long int num = va_arg(substitutes, unsigned long int);
 	*chars_printed = myOct(&num);
     } else {
-	// Implement your error handling logic here, e.g., write an error message.
+	stop("Invalid format specifier!");
     }
 
     return (*chars_printed);
