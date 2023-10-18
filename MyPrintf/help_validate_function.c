@@ -56,6 +56,12 @@ int handleSwitchCases(char *fmt, int *chars_printed, va_list substitutes) {
 	    *chars_printed = writeMe(&num, 8, 'o');
 	    break;
 	}
+	case 'p':
+	{
+	    unsigned long int num = va_arg(substitutes, unsigned long int);
+	    *chars_printed = handleAddress(fmt, &num);
+	    break;
+	}
 	default:
 	{
 	    write(1, "%", 1);

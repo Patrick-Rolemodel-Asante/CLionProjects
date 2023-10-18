@@ -20,14 +20,14 @@ int _printf(const char *fmt, ...)
 	{
 	    fmt++;
 	    validate(fmt, &charsPrinted, substitutes);
+	    if (*fmt == 'l')
+		fmt += 2;
 	}
 	else
 	{
 	    write(1, fmt, 1);
 	    charsPrinted++;
 	}
-	if (*fmt == 'l')
-	    fmt += 2;
 	fmt++;
     }
 

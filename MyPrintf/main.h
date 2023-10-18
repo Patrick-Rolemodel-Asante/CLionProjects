@@ -15,8 +15,6 @@ typedef enum {
     INT,
     CHAR,
     STRING,
-    FLOAT,
-    DOUBLE,
     PERCENT,
     UNSIGNED,
 } fmt;
