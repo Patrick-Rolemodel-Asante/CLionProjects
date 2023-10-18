@@ -30,7 +30,6 @@ void check_errors(const char *fmt);
 
 
 
-int validate(const char *fmt, int *chars_printed, va_list substitutes);
 
 char *changeToBaseN(unsigned long int num, int new_base);
 int myHex(char *fmt, unsigned long *num);
@@ -53,7 +52,7 @@ int format_CHAR(va_list args);
 int format_INT(va_list args);
 int format_DOUBLE(va_list args);
 int format_UNSIGNED(va_list args);
-int validate1(const char *fmt, int *chars_printed, va_list substitutes);
+int validate(char *fmt, int *chars_printed, va_list substitutes);
 int handleLfCase(char **fmt, int *chars_printed, va_list substitutes);
 int handleSwitchCases(char *fmt, int *chars_printed, va_list
 substitutes);

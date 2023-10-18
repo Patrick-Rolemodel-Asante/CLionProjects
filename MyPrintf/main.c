@@ -33,6 +33,10 @@ int main(void){
     printf("Len:[%d]\n", len2);
     _printf("Unknown:[%r]\n");
     printf("Unknown:[%r]\n");
-    _printf("%b", 98);
+    _printf("%b\n", 98);
+    _printf("%S\n", "Best\nSchool");
+    string_reverse("Rolemodel");
+    _printf("\n");
+    -printf("%#o", 9);
     return (0);
 }

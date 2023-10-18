@@ -1,25 +1,26 @@
 #include "main.h"
 
 /**
- * handle_custom_r - handles the custom specifier r
- * @substitutes: the list of arguments
+ * handleAddress - handles the custom specifier 'p'
+ * @fmt: format specifier
+ * @num: the number to convert
  *
  * Return: the number of characters printed
  */
 
-int handleAddress(char *fmt, unsigned long *num) {
+int handleAddress(char *fmt, unsigned long *num)
+{
     char *new_num = changeToBaseN(*num, 16);
 
-    if (!new_num) {
-        // Handle memory allocation error.
-        stop("Memory allocation error");
-    }
+    if (!new_num)
+	stop("Memory allocation error");
+
     char prefix_low[300] = "0x";
     lowerCase(new_num);
     write(1, prefix_low, strlen(prefix_low));
     write(1, new_num, strlen(new_num));
     int total_length = (int) (strlen(prefix_low) + strlen(new_num));
-    free(new_num);  // Remember to free the memory allocated in changeToBaseN.
+    free(new_num);
     return total_length;
 
 }
@@ -32,7 +33,8 @@ int handleAddress(char *fmt, unsigned long *num) {
  * Return: the number of characters printed
  */
 
-int handleCustomS(va_list substitutes) {
+int handleCustomS(va_list substitutes)
+{
     char *str = va_arg(substitutes, char *);
     int len = 0;
     int i;
@@ -41,24 +43,24 @@ int handleCustomS(va_list substitutes) {
     char *temp2;
 
     if (str == NULL)
-        str = "(null)";
+	str = "(null)";
     for (i = 0; str[i]; i++)
-        if (str[i] < 32 || str[i] >= 127)
-            len += 4;
-        else
-            len++;
+	if (str[i] < 32 || str[i] >= 127)
+	    len += 4;
+	else
+	    len++;
     temp = malloc(sizeof(char) * (len + 1));
     temp2 = temp;
     for (i = 0; str[i]; i++) {
-        if (str[i] < 32 || str[i] >= 127) {
-            *temp++ = '\\';
-            *temp++ = 'x';
-            hex = convertToHex(str[i]);
-            *temp++ = hex[0];
-            *temp++ = hex[1];
-            free(hex);
-        } else
-            *temp++ = str[i];
+	if (str[i] < 32 || str[i] >= 127) {
+	    *temp++ = '\\';
+	    *temp++ = 'x';
+	    hex = convertToHex(str[i]);
+	    *temp++ = hex[0];
+	    *temp++ = hex[1];
+	    free(hex);
+	} else
+	    *temp++ = str[i];
     }
     *temp = '\0';
     len = write(1, temp2, len);
@@ -78,11 +80,11 @@ char *convertToHex(int num) {
     char *hex = malloc(sizeof(char) * 3);
 
     for (i = 1; i >= 0; i--) {
-        if (num % 16 > 9)
-            hex[i] = (num % 16) + 55;
-        else
-            hex[i] = (num % 16) + '0';
-        num /= 16;
+	if (num % 16 > 9)
+	    hex[i] = (num % 16) + 55;
+	else
+	    hex[i] = (num % 16) + '0';
+	num /= 16;
     }
     return (hex);
 }

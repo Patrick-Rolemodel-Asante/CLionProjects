@@ -9,18 +9,28 @@
 void rot13(char *s)
 {
     int i = 0;
+    char c;
 
     while (s[i] != '\0')
     {
-	if ((s[i] >= 'a' && s[i] <= 'm') || (s[i] >= 'A' && s[i] <= 'M'))
-	    s[i] += 13;
-	else if ((s[i] >= 'n' && s[i] <= 'z') || (s[i] >= 'N' && s[i] <= 'Z'))
-	{
-	    s[i] -= 13;
+	if ((s[i] >= 'a' && s[i] <= 'm') || (s[i] >= 'A' && s[i] <= 'M')) {
+	    c = s[i] + 13;
+	    write(1, &c, 1);
 	    i++;
 	}
+	else if ((s[i] >= 'n' && s[i] <= 'z') || (s[i] >= 'N' && s[i] <= 'Z'))
+	{
+	    c = s[i] - 13;
+	    write(1, &c, 1);
+	    i++;
+	} else{
+	    write(1, &s[i], 1);
+	    i++;
+	}
+
     }
 }
+
 
 /**
  * string_reverse - Reverses a string.
@@ -34,23 +44,24 @@ int string_reverse(char *str)
 {
     int i = 0;
     int len = 0;
-    char temp;
 
     while (str[i] != '\0')
     {
 	len++;
 	i++;
     }
-
-    for (i = 0; i < len / 2; i++)
+    char *rev = malloc(len + 1);  // Allocate memory for the new string
+    if (rev == NULL)
+	return (-1);
+    for (i = 0; i < len; i++)
     {
-	temp = str[i];
-	str[i] = str[len - i - 1];
-	str[len - i - 1] = temp;
+	rev[i] = str[len - i - 1];
     }
-
+    rev[len] = '\0';
+    write(1, rev, len);
     return (len);
 }
+
 
 /**
  * lowerCase - Converts uppercase letters to lowercase in a string.
