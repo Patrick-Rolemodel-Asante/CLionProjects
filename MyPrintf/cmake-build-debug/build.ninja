@@ -49,11 +49,11 @@ cmake_ninja_workdir = /home/rol/CLionProjects/MyPrintf/cmake-build-debug/
 
 build cmake_object_order_depends_target_MyPrintf: phony || CMakeFiles/MyPrintf.dir
 
-build CMakeFiles/MyPrintf.dir/main.c.o: C_COMPILER__MyPrintf_unscanned_Debug /home/rol/CLionProjects/MyPrintf/main.c || cmake_object_order_depends_target_MyPrintf
-  DEP_FILE = CMakeFiles/MyPrintf.dir/main.c.o.d
+build CMakeFiles/MyPrintf.dir/test/main.c.o: C_COMPILER__MyPrintf_unscanned_Debug /home/rol/CLionProjects/MyPrintf/test/main.c || cmake_object_order_depends_target_MyPrintf
+  DEP_FILE = CMakeFiles/MyPrintf.dir/test/main.c.o.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/MyPrintf.dir
-  OBJECT_FILE_DIR = CMakeFiles/MyPrintf.dir
+  OBJECT_FILE_DIR = CMakeFiles/MyPrintf.dir/test
 
 build CMakeFiles/MyPrintf.dir/printf-errors.c.o: C_COMPILER__MyPrintf_unscanned_Debug /home/rol/CLionProjects/MyPrintf/printf-errors.c || cmake_object_order_depends_target_MyPrintf
   DEP_FILE = CMakeFiles/MyPrintf.dir/printf-errors.c.o.d
@@ -111,7 +111,7 @@ build CMakeFiles/MyPrintf.dir/help_validate_function.c.o: C_COMPILER__MyPrintf_u
 #############################################
 # Link the executable MyPrintf
 
-build MyPrintf: C_EXECUTABLE_LINKER__MyPrintf_Debug CMakeFiles/MyPrintf.dir/main.c.o CMakeFiles/MyPrintf.dir/printf-errors.c.o CMakeFiles/MyPrintf.dir/_printf.c.o CMakeFiles/MyPrintf.dir/custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/other_helpers.c.o CMakeFiles/MyPrintf.dir/non-custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/control-printf.c.o CMakeFiles/MyPrintf.dir/other-custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/help_validate_function.c.o
+build MyPrintf: C_EXECUTABLE_LINKER__MyPrintf_Debug CMakeFiles/MyPrintf.dir/test/main.c.o CMakeFiles/MyPrintf.dir/printf-errors.c.o CMakeFiles/MyPrintf.dir/_printf.c.o CMakeFiles/MyPrintf.dir/custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/other_helpers.c.o CMakeFiles/MyPrintf.dir/non-custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/control-printf.c.o CMakeFiles/MyPrintf.dir/other-custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/help_validate_function.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/MyPrintf.dir
   POST_BUILD = :

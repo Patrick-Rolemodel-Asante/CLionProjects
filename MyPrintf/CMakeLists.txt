@@ -3,7 +3,7 @@ project(MyPrintf C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(MyPrintf main.c
+add_executable(MyPrintf test/main.c
         main.h
         printf-errors.c
         _printf.c

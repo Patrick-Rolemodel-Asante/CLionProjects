@@ -1,22 +1,34 @@
 #ifndef MYPRINTF_MAIN_H
 #define MYPRINTF_MAIN_H
 
-#include <stdarg.h> // Include for the va_list type
-#include <errno.h> // Include for the errno variable
-#include <stdio.h> // Include for the write function
-#include <stdlib.h> // Include for the malloc function
-#include <string.h> // Include for the strlen function
-#include <unistd.h> // Include for the write function
-#include <limits.h> // Include for the INT_MAX and INT_MIN macros
+#include <stdarg.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <limits.h>
 
 
-
-typedef enum {
-    INT,
-    CHAR,
-    STRING,
-    PERCENT,
-    UNSIGNED,
+/**
+ * enum format - Enumeration for different format types *
+ * @INT: Represents an integer format type
+ * @CHAR: Represents a character format type
+ * @STRING: Represents a string format type
+ * @PERCENT: Represents a percentage format type
+ * @UNSIGNED: Represents an unsigned integer format type
+ *
+ * Description: This enumeration is used to represent different
+ * format types in the program. Each member corresponds to a
+ * specific format type.
+ */
+typedef enum format
+{
+INT,
+CHAR,
+STRING,
+PERCENT,
+UNSIGNED,
 } fmt;
 
 int (*printFunction[])(va_list);
@@ -33,7 +45,7 @@ char *changeToBaseN(unsigned long int num, int new_base);
 int myHex(char *fmt, unsigned long *num);
 int myOct(unsigned long *num);
 int writeMe(unsigned long *num, int base, char letter);
-void lowerCase(char * new_num);
+void lowerCase(char *new_num);
 int _printf(const char *format, ...);
 int handleAddress(char *fmt, unsigned long *num);
 int myBin(unsigned long *num);
@@ -44,11 +56,9 @@ char *convertToHex(int num);
 
 
 int format_PERCENT(va_list empty);
-int format_FLOAT(va_list args);
 int format_STRING(va_list args);
 int format_CHAR(va_list args);
 int format_INT(va_list args);
-int format_DOUBLE(va_list args);
 int format_UNSIGNED(va_list args);
 int validate(char *fmt, int *chars_printed, va_list substitutes);
 int handleLfCase(char **fmt, int *chars_printed, va_list substitutes);
@@ -61,4 +71,4 @@ substitutes);
 
 
 int format_floating_number(va_list args, int flag);
-#endif // MYPRINTF_MAIN_H
+#endif /* MYPRINTF_MAIN_H */
