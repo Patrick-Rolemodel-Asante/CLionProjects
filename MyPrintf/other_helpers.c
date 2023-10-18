@@ -30,7 +30,8 @@ char  *changeToBaseN(unsigned long int num, int new_base)
 }
 
 
-/** myBin - converts a number to binary
+/**
+ * myBin - converts a number to binary
  * @num: number to convert
  * Return: number of characters printed
  */
@@ -44,7 +45,8 @@ int myBin(unsigned long *num)
 }
 
 
-/** myHex - converts a number to hexadecimal
+/**
+ * myHex - converts a number to hexadecimal
  * @fmt: format specifier
  * @num: number to convert
  * Return: number of characters printed
@@ -76,7 +78,8 @@ int myHex(char *fmt, unsigned long *num)
 }
 
 
-/** myOct - converts a number to octal
+/**
+ * myOct - converts a number to octal
  * @num: number to convert
  * Return: number of characters printed
  */
@@ -92,7 +95,8 @@ int myOct(unsigned long *num)
 }
 
 
-/** writeMe - writes the number to the standard output
+/**
+ * writeMe - writes the number to the standard output
  * @num: number to write
  * @base: base to convert to
  * @letter: letter to use
@@ -101,7 +105,8 @@ int myOct(unsigned long *num)
 int writeMe(unsigned long *num, int base, char letter)
 {
     char *newNum = changeToBaseN(*num, base);
-    if (letter == 'x') lowerCase(newNum);
+    if (letter == 'x')
+	lowerCase(newNum);
     int newNumLen = (int) (strlen(newNum));
     write(1, newNum, newNumLen);
 

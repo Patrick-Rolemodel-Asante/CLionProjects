@@ -21,7 +21,7 @@ int handleAddress(char *fmt, unsigned long *num)
     write(1, new_num, strlen(new_num));
     int total_length = (int) (strlen(prefix_low) + strlen(new_num));
     free(new_num);
-    return total_length;
+    return (total_length);
 
 }
 
@@ -51,8 +51,10 @@ int handleCustomS(va_list substitutes)
 	    len++;
     temp = malloc(sizeof(char) * (len + 1));
     temp2 = temp;
-    for (i = 0; str[i]; i++) {
-	if (str[i] < 32 || str[i] >= 127) {
+    for (i = 0; str[i]; i++)
+    {
+	if (str[i] < 32 || str[i] >= 127)
+	{
 	    *temp++ = '\\';
 	    *temp++ = 'x';
 	    hex = convertToHex(str[i]);
@@ -75,11 +77,13 @@ int handleCustomS(va_list substitutes)
  * Return: the hexadecimal number
  */
 
-char *convertToHex(int num) {
+char *convertToHex(int num)
+{
     int i;
     char *hex = malloc(sizeof(char) * 3);
 
-    for (i = 1; i >= 0; i--) {
+    for (i = 1; i >= 0; i--)
+    {
 	if (num % 16 > 9)
 	    hex[i] = (num % 16) + 55;
 	else
@@ -109,24 +113,26 @@ int format_PERCENT(va_list empty)
 
 int format_UNSIGNED(va_list args)
 {
-    unsigned int arg = va_arg(args, unsigned int);  // Use unsigned int
+    unsigned int arg = va_arg(args, unsigned int);
 
     char int_str[32];
     int int_len = 0;
 
-    if (arg == 0) {
+    if (arg == 0)
 	int_str[int_len++] = '0';
-    }
-    else {
-	while (arg > 0 && int_len < 32) {
+    else
+    {
+	while (arg > 0 && int_len < 32)
+	{
 	    int_str[int_len++] = '0' + (arg % 10);
 	    arg /= 10;
 	}
     }
 
-    for (int i = int_len - 1; i >= 0; i--) {
+    for (int i = int_len - 1; i >= 0; i--)
+    {
 	write(1, &int_str[i], 1);
     }
 
-    return int_len;  // Return the length of the formatted string
+    return (int_len);
 }
