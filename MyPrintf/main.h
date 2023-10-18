@@ -62,6 +62,5 @@ int handleHashCase(char **fmt, int *chars_printed, va_list
 substitutes);
 
 
-char *formatFracPart(double frac_part);
-char *formatIntPart(int int_part);
+int format_floating_number(va_list args, int flag);
 #endif // MYPRINTF_MAIN_H

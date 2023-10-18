@@ -2,7 +2,7 @@
 
 int handleLfCase(char **fmt, int *chars_printed, va_list substitutes)
 {
-    *chars_printed = (*printFunction[DOUBLE])(substitutes);
+    *chars_printed = format_floating_number(substitutes, 1);
     return (*chars_printed);
 }
 
@@ -35,8 +35,7 @@ int handleSwitchCases(char *fmt, int *chars_printed, va_list substitutes) {
 	    break;
 	case 'f':
 	{
-	    *chars_printed += (*printFunction[FLOAT])(substitutes);
-	    (*fmt)++;
+	    *chars_printed += format_floating_number(substitutes, 0);
 	    break;
 	}
 	case 'X':

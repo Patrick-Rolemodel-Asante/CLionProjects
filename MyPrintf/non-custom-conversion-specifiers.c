@@ -213,3 +213,58 @@ int format_DOUBLE(va_list args)
 
     return (digits_printed);
 }
+
+
+int format_floating_number(va_list args, int flag)
+{
+    double arg = flag ? va_arg(args, double) : va_arg(args, double);
+    int digits_printed = 0;
+
+    if (arg < 0)
+    {
+	write(1, "-", 1);
+	digits_printed++;
+	arg = -arg;
+    }
+
+    int int_part = (int) arg;
+    char *int_str = malloc(int_part * sizeof(char));
+    if (int_str == NULL)
+	stop("Error allocating memory");
+    int i = 0;
+    do {
+	int_str[i++] = '0' + (int_part % 10);
+	int_part /= 10;
+    } while (int_part != 0);
+
+    int_str[i] = '\0';
+    for (int j = 0; j < i / 2; j++)
+    {
+	char temp = int_str[j];
+	int_str[j] = int_str[i - j - 1];
+	int_str[i - j - 1] = temp;
+    }
+
+    write(1, int_str, i);
+    digits_printed += i;
+
+    write(1, ".", 1);
+    digits_printed++;
+
+    double frac_part = arg - int_part;
+    char frac_str[7];
+    for (i = 0; i < 6; i++)
+    {
+	frac_part *= 10;
+	frac_str[i] = '0' + ((int) frac_part % 10);
+	frac_part -= (int) frac_part;
+    }
+    frac_str[6] = '\0';
+
+    write(1, frac_str, 6);
+    digits_printed += 6;
+
+    free(int_str);
+
+    return (digits_printed);
+}
