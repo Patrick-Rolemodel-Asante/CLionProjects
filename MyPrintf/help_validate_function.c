@@ -23,62 +23,73 @@ return (*chars_printed);
  */
 
 
-int handleCase(char *format, int (*printFunc[])(va_list), va_list substitutes)
-{
-    unsigned long int num = va_arg(substitutes, unsigned long int);
-    return printFunc(&num);
-}
-
 int handleSwitchCases(char *fmt, int *chars_printed, va_list substitutes)
 {
-    switch (*fmt)
-    {
-	case '%':
-	    *chars_printed += (*printFunction[PERCENT])(substitutes);
-	    break;
-	case '\n':
-	    *chars_printed = (*printFunction[PERCENT])(substitutes);
-	    break;
-	case 'c':
-	    *chars_printed = (*printFunction[CHAR])(substitutes);
-	    break;
-	case 'b':
-	    *chars_printed = handleCase(*fmt, myBin, substitutes);
-	    break;
-	case 's':
-	    *chars_printed = (*printFunction[STRING])(substitutes);
-	    break;
-	case 'u':
-	    *chars_printed = format_UNSIGNED(substitutes);
-	    break;
-	case 'd':
-	case 'i':
-	    *chars_printed = (*printFunction[INT])(substitutes);
-	    break;
-	case 'f':
-	    *chars_printed += format_floating_number(substitutes, 0);
-	    break;
-	case 'X':
-	case 'x':
-	    if (*fmt == 'x')
-		*chars_printed += handleCase(fmt, writeMe, substitutes);
-	    else
-		*chars_printed = handleCase(fmt, writeMe, substitutes);
-	    break;
-	case 'o':
-	    *chars_printed = handleCase(fmt, writeMe, substitutes);
-	    break;
-	case 'p':
-	    *chars_printed = handleCase(fmt, handleAddress(), substitutes);
-	    break;
-	default:
-	    write(1, "%", 1);
-	    write(1, fmt, 1);
-	    *chars_printed += 2;
-    }
-    return (*chars_printed);
+switch (*fmt)
+{
+case '%':
+*chars_printed += (*printFunction[PERCENT])(substitutes);
+break;
+case '\n':
+*chars_printed = (*printFunction[PERCENT])(substitutes);
+break;
+case 'c':
+*chars_printed = (*printFunction[CHAR])(substitutes);
+break;
+case 'b': {
+unsigned long int num = va_arg(substitutes, unsigned long int);
+*chars_printed = myBin(&num);
+break;
 }
-
+case 's':
+*chars_printed = (*printFunction[STRING])(substitutes);
+break;
+case 'u':
+*chars_printed = format_UNSIGNED(substitutes);
+break;
+case 'd':
+case 'i':
+*chars_printed = (*printFunction[INT])(substitutes);
+break;
+case 'f':
+{
+*chars_printed += format_floating_number(substitutes, 0);
+break;
+}
+case 'X':
+case 'x':
+{
+if (*fmt == 'x')
+{
+unsigned long int num = va_arg(substitutes, unsigned long int);
+*chars_printed += writeMe(&num, 16, 'x');
+break;
+}
+unsigned long int num = va_arg(substitutes, unsigned long int);
+*chars_printed = writeMe(&num, 16, 'X');
+break;
+}
+case 'o':
+{
+unsigned long int num = va_arg(substitutes, unsigned long int);
+*chars_printed = writeMe(&num, 8, 'o');
+break;
+}
+case 'p':
+{
+unsigned long int num = va_arg(substitutes, unsigned long int);
+*chars_printed = handleAddress(fmt, &num);
+break;
+}
+default:
+{
+write(1, "%", 1);
+write(1, fmt, 1);
+*chars_printed += 2;
+}
+}
+return (*chars_printed);
+}
 
 /**
  * handleSCase - handles the S case
