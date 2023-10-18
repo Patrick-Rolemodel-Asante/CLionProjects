@@ -101,7 +101,7 @@ int format_STRING(va_list args)
 
 int format_FLOAT(va_list args)
 {
-    float arg = va_arg(args, double);
+    double arg = va_arg(args, double);
     int digits_printed = 0;
 
     if (arg < 0)

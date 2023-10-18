@@ -37,6 +37,7 @@ int main(void){
     _printf("%S\n", "Best\nSchool");
     string_reverse("Rolemodel");
     _printf("\n");
-    -printf("%#o", 9);
+    -printf("%#o\n", 9);
+    _printf("%f\n", 9.2);
     return (0);
 }

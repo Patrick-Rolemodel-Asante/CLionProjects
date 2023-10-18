@@ -1,8 +1,8 @@
 #include "main.h"
 
-int handleLfCase(char **fmt, int *chars_printed, va_list substitutes) {
+int handleLfCase(char **fmt, int *chars_printed, va_list substitutes)
+{
     *chars_printed = (*printFunction[DOUBLE])(substitutes);
-    (*fmt) += 2;  // Update the pointer in the caller function.
     return (*chars_printed);
 }
 

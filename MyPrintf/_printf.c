@@ -26,6 +26,8 @@ int _printf(const char *fmt, ...)
 	    write(1, fmt, 1);
 	    charsPrinted++;
 	}
+	if (*fmt == 'l')
+	    fmt += 2;
 	fmt++;
     }
 
