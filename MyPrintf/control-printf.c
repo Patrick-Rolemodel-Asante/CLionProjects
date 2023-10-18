@@ -11,6 +11,7 @@
 
 int validate(char *fmt, int *chars_printed, va_list substitutes)
 {
+check_errors(fmt);
 if (*fmt == 'l' && *(fmt + 1) == 'f')
 return (handleLfCase(&fmt, chars_printed, substitutes));
 else if (*fmt == '#')
