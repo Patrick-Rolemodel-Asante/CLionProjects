@@ -1,10 +1,26 @@
 #include "main.h"
 
+/**
+ * handleLfCase - handles the lf case
+ * @fmt: format specifier
+ * @chars_printed: number of characters printed
+ * @substitutes: list of arguments
+ * Return: number of characters printed
+ */
+
 int handleLfCase(char **fmt, int *chars_printed, va_list substitutes)
 {
 *chars_printed = format_floating_number(substitutes, 1);
 return (*chars_printed);
 }
+
+/**
+ * handleSwitchCases - handles the switch cases
+ * @fmt: format specifier
+ * @chars_printed: number of characters printed
+ * @substitutes: list of arguments
+ * Return: number of characters printed
+ */
 
 
 int handleSwitchCases(char *fmt, int *chars_printed, va_list substitutes)
@@ -75,12 +91,26 @@ write(1, fmt, 1);
 return (*chars_printed);
 }
 
+/**
+ * handleSCase - handles the S case
+ * @fmt: format specifier
+ * @chars_printed: number of characters printed
+ * @substitutes: list of arguments
+ * Return: number of characters printed
+ */
 
 int handleSCase(char **fmt, int *chars_printed, va_list substitutes)
 {
 return (*chars_printed = handleCustomS(substitutes));
 }
 
+/**
+ * handleHashCase - handles the # case
+ * @fmt: format specifier
+ * @chars_printed: number of characters printed
+ * @substitutes: list of arguments
+ * Return: number of characters printed
+ */
 
 int handleHashCase(char **fmt, int *chars_printed, va_list substitutes)
 {
