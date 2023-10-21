@@ -1,4 +1,6 @@
-#include "../main.h"
+#include "main.h"
+
+unsigned char *strdup(unsigned char str[7]);
 
 /**
  * _printf - prints a formatted string
@@ -53,40 +55,141 @@ int _printf(const char *format, ...)
  * Return: number of characters printed
  */
 
-int formatInt(va_list list)
+//int formatInt(va_list list)
+//{
+//
+//	unsigned char intStr[32];
+//	int intLen = 0, i = 0;
+//	int arg = va_arg(list, int);
+//	int temp = arg;
+//	int len = 0;
+//
+//	if (arg < 0)
+//	{
+//		write(1, "-", 1);
+//		len++;
+//		arg = -arg;
+//	}
+//
+//
+//
+//	if (temp == 0)
+//		intStr[intLen++] = '0';
+//	else
+//	{
+//		while (temp > 0)
+//		{
+//			intStr[intLen++] = '0' + (temp % 10);
+//			temp /= 10;
+//		}
+//	}
+//
+//	for (i = intLen - 1; i >= 0; i--)
+//	{
+//		write(1, &intStr[i], 1);
+//		len++;
+//	}
+//
+//	return (len);
+//}
+
+
+
+
+
+// Function to print a character array
+void printString(const unsigned char *str, int *digitsPrinted) {
+    int len = 0;
+    while (str[len] != '\0') {
+	write(1, &str[len], 1);
+	len++;
+	(*digitsPrinted)++;
+    }
+}
+
+// Function to convert an integer part of a floating-point number to a string
+unsigned char* integerPartToString(int intPart) {
+    unsigned char *intStr = malloc(32 * sizeof(unsigned char));
+
+    if (intStr == NULL) {
+	stop("Error allocating memory");
+    }
+
+    int i = 0;
+
+    do {
+	intStr[i++] = '0' + (intPart % 10);
+	intPart /= 10;
+    } while (intPart != 0);
+    intStr[i] = '\0';
+
+    // Reverse the integer part string
+    int len = i;
+    for (int j = 0; j < len / 2; j++) {
+	unsigned char temp = intStr[j];
+	intStr[j] = intStr[len - j - 1];
+	intStr[len - j - 1] = temp;
+    }
+
+    return intStr;
+}
+
+// Function to convert the fractional part of a floating-point number to a string
+unsigned char* fractionalPartToString(double fracPart) {
+    unsigned char fracStr[7];
+
+    for (int i = 0; i < 6; i++) {
+	fracPart *= 10;
+	fracStr[i] = '0' + ((int) fracPart % 10);
+	fracPart -= (int) fracPart;
+    }
+    fracStr[6] = '\0';
+
+    return strdup(fracStr);
+}
+
+unsigned char *strdup(unsigned char str[7])
 {
+    unsigned char *newStr = malloc(7 * sizeof(unsigned char));
 
-	unsigned char intStr[32];
-	int intLen = 0, i = 0;
-	int arg = va_arg(list, int);
-	int temp = arg;
-	int len = 0;
+    if (newStr == NULL) {
+	stop("Error allocating memory");
+    }
 
-	if (arg < 0)
-	{
-		write(1, "-", 1);
-		len++;
-		arg = -arg;
-	}
+    for (int i = 0; i < 7; i++) {
+	newStr[i] = str[i];
+    }
 
+    return newStr;
+}
 
+int formatFloatingNumber(va_list args) {
+    double arg = va_arg(args, double);
+    int digitsPrinted = 0;
 
-	if (temp == 0)
-		intStr[intLen++] = '0';
-	else
-	{
-		while (temp > 0)
-		{
-			intStr[intLen++] = '0' + (temp % 10);
-			temp /= 10;
-		}
-	}
+    if (arg < 0) {
+	write(1, "-", 1);
+	digitsPrinted++;
+	arg = -arg;
+    }
 
-	for (i = intLen - 1; i >= 0; i--)
-	{
-		write(1, &intStr[i], 1);
-		len++;
-	}
+    int intPart = (int)arg;
+    unsigned char *intStr = integerPartToString(intPart);
 
-	return (len);
+    // Print the integer part
+    printString(intStr, &digitsPrinted);
+
+    write(1, ".", 1);
+    digitsPrinted++;
+
+    double fracPart = arg - intPart;
+    unsigned char *fracStr = fractionalPartToString(fracPart);
+
+    // Print the fractional part
+    printString(fracStr, &digitsPrinted);
+
+    free(intStr);
+    free(fracStr);
+
+    return digitsPrinted;
 }
