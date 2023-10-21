@@ -1,13 +1,13 @@
 #include "main.h"
 
 /**
- * handleLfCase - handles the lf case
+ * doubleCase - handles the lf case
  * @charsPrinted: number of characters printed
  * @substitutes: list of arguments
  * Return: number of characters printed
  */
 
-int handleLfCase(int *charsPrinted, va_list substitutes)
+int doubleCase(int *charsPrinted, va_list substitutes)
 {
 	*charsPrinted = formatFloatingNumber(substitutes);
 	return (*charsPrinted);
@@ -131,7 +131,7 @@ int moreSwitchCases(va_list substitutes, const char *fmt, int *charsPrinted)
 	case 'p':
 	{
 		num = va_arg(substitutes, long int);
-		*charsPrinted = handleAddress(&num);
+		*charsPrinted = address(&num);
 		break;
 	}
 	default:

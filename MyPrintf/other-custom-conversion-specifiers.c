@@ -1,13 +1,13 @@
 #include "main.h"
 
 /**
-* handleAddress - handles the custom specifier 'p'
+* address - handles the custom specifier 'p'
 * @num: the number to convert
 *
 * Return: the number of characters printed
 */
 
-int handleAddress(const long *num)
+int address(const long *num)
 {
 	char *newNum = changeToBaseN(*num, 16);
 

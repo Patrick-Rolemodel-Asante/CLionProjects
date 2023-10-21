@@ -21,7 +21,7 @@ int _printf(const char *fmt, ...)
 		if (*fmt == '%')
 		{
 			fmt++;
-			validate(fmt, &charsPrinted, substitutes);
+		    validation(fmt, &charsPrinted, substitutes);
 			if (*fmt == 'l')
 			fmt += 2;
 		}
