@@ -9,29 +9,31 @@
 
 int _printf(const char *fmt, ...)
 {
-int charsPrinted = 0;
-va_list substitutes;
+	int charsPrinted = 0;
+	va_list substitutes;
 
-va_start(substitutes, fmt);
+	checkErrors(fmt);
 
-while (*fmt)
-{
-if (*fmt == '%')
-{
-fmt++;
-validate(fmt, &charsPrinted, substitutes);
-if (*fmt == 'l')
-fmt += 2;
-}
-else
-{
-write(1, fmt, 1);
-charsPrinted++;
-}
-fmt++;
-}
+	va_start(substitutes, fmt);
 
-va_end(substitutes);
+	while (*fmt)
+	{
+		if (*fmt == '%')
+		{
+			fmt++;
+			validate(fmt, &charsPrinted, substitutes);
+			if (*fmt == 'l')
+			fmt += 2;
+		}
+		else
+		{
+			write(1, fmt, 1);
+			charsPrinted++;
+		}
+	fmt++;
+	}
 
-return (charsPrinted);
+	va_end(substitutes);
+
+	return (charsPrinted);
 }

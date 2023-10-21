@@ -10,65 +10,41 @@
 #include <limits.h>
 
 
-/**
- * enum format - Enumeration for different format types *
- * @INT: Represents an integer format type
- * @CHAR: Represents a character format type
- * @STRING: Represents a string format type
- * @PERCENT: Represents a percentage format type
- * @UNSIGNED: Represents an unsigned integer format type
- *
- * Description: This enumeration is used to represent different
- * format types in the program. Each member corresponds to a
- * specific format type.
- */
-typedef enum format
-{
-INT,
-CHAR,
-STRING,
-PERCENT,
-UNSIGNED,
-} fmt;
-
-int (*printFunction[])(va_list);
 
 int _printf(const char *fmt, ...);
 
 void stop(const char *str);
-void check_errors(const char *fmt);
+void checkErrors(const char *fmt);
 
 
 
 
-char *changeToBaseN(unsigned long int num, int new_base);
-int myHex(char *fmt, unsigned long *num);
-int myOct(unsigned long *num);
-int writeMe(unsigned long *num, int base, char letter);
-void lowerCase(char *new_num);
+char *changeToBaseN(unsigned long int num, int newBase);
+int myHex(const char *fmt, const unsigned long *num);
+int myOct(const unsigned long *num);
+int writeMe(const long *num, int base, char letter);
+void lowerCase(char *newNum);
 int _printf(const char *format, ...);
-int handleAddress(char *fmt, unsigned long *num);
-int myBin(unsigned long *num);
-int string_reverse(char *str);
+int handleAddress(const long *num);
+int myBin(const unsigned long *num);
+int stringReverse(const char *str);
 void rot13(char *s);
 int handleCustomS(va_list substitutes);
 char *convertToHex(int num);
 
 
-int format_PERCENT(va_list empty);
-int format_STRING(va_list args);
-int format_CHAR(va_list args);
-int format_INT(va_list args);
-int format_UNSIGNED(va_list args);
-int validate(char *fmt, int *chars_printed, va_list substitutes);
-int handleLfCase(char **fmt, int *chars_printed, va_list substitutes);
-int handleSwitchCases(char *fmt, int *chars_printed, va_list
+int formatPercent();
+int formatString(va_list args);
+int formatChar(va_list args);
+int formatInt(va_list args);
+int formatUnsigned(va_list args);
+int validate(const char *fmt, int *charsPrinted, va_list substitutes);
+int handleLfCase(int *charsPrinted, va_list substitutes);
+int handleSwitchCases(const char *fmt, int *charsPrinted, va_list
 substitutes);
-int handleSCase(char **fmt, int *chars_printed, va_list
-substitutes);
-int handleHashCase(char **fmt, int *chars_printed, va_list
-substitutes);
+int handleSCase(int *charsPrinted, va_list substitutes);
+int handleHashCase(const char **fmt, int *charsPrinted, va_list substitutes);
 
-
-int format_floating_number(va_list args, int flag);
+int moreSwitchCases(va_list substitutes, const char *fmt, int *charsPrinted);
+int formatFloatingNumber(va_list args);
 #endif /* MYPRINTF_MAIN_H */

@@ -9,7 +9,7 @@
 void rot13(char *s)
 {
 int i = 0;
-char c;
+unsigned char c;
 
 while (s[i] != '\0')
 {
@@ -36,14 +36,14 @@ i++;
 
 
 /**
-* string_reverse - Reverses a string.
+* stringReverse - Reverses a string.
 * @str: The string to be reversed.
 *
 * This function reverses the characters in a string.
 *
 * Return: The length of the string.
 */
-int string_reverse(char *str)
+int stringReverse(const char *str)
 {
 int i = 0;
 int len = 0;
@@ -72,14 +72,14 @@ return (len);
 *
 * This function converts uppercase letters in a string to lowercase.
 */
-void lowerCase(char *new_num)
+void lowerCase(char *newNum)
 {
 int i = 0;
 
-while (new_num[i] != '\0')
+while (newNum[i] != '\0')
 {
-if (new_num[i] >= 'A' && new_num[i] <= 'Z')
-new_num[i] += 32;
+if (newNum[i] >= 'A' && newNum[i] <= 'Z')
+    newNum[i] += 32;
 i++;
 }
 }

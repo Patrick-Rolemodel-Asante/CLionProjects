@@ -2,130 +2,144 @@
 
 /**
  * handleLfCase - handles the lf case
- * @fmt: format specifier
- * @chars_printed: number of characters printed
+ * @charsPrinted: number of characters printed
  * @substitutes: list of arguments
  * Return: number of characters printed
  */
 
-int handleLfCase(char **fmt, int *chars_printed, va_list substitutes)
+int handleLfCase(int *charsPrinted, va_list substitutes)
 {
-*chars_printed = format_floating_number(substitutes, 1);
-return (*chars_printed);
+	*charsPrinted = formatFloatingNumber(substitutes);
+	return (*charsPrinted);
 }
+
 
 /**
  * handleSwitchCases - handles the switch cases
  * @fmt: format specifier
- * @chars_printed: number of characters printed
+ * @charsPrinted: number of characters printed
  * @substitutes: list of arguments
  * Return: number of characters printed
  */
 
-
-int handleSwitchCases(char *fmt, int *chars_printed, va_list substitutes)
+int handleSwitchCases(const char *fmt, int *charsPrinted, va_list substitutes)
 {
-switch (*fmt)
-{
-case '%':
-*chars_printed += (*printFunction[PERCENT])(substitutes);
-break;
-case '\n':
-*chars_printed = (*printFunction[PERCENT])(substitutes);
-break;
-case 'c':
-*chars_printed = (*printFunction[CHAR])(substitutes);
-break;
-case 'b': {
-unsigned long int num = va_arg(substitutes, unsigned long int);
-*chars_printed = myBin(&num);
-break;
-}
-case 's':
-*chars_printed = (*printFunction[STRING])(substitutes);
-break;
-case 'u':
-*chars_printed = format_UNSIGNED(substitutes);
-break;
-case 'd':
-case 'i':
-*chars_printed = (*printFunction[INT])(substitutes);
-break;
-case 'f':
-{
-*chars_printed += format_floating_number(substitutes, 0);
-break;
-}
-case 'X':
-case 'x':
-{
-if (*fmt == 'x')
-{
-unsigned long int num = va_arg(substitutes, unsigned long int);
-*chars_printed += writeMe(&num, 16, 'x');
-break;
-}
-unsigned long int num = va_arg(substitutes, unsigned long int);
-*chars_printed = writeMe(&num, 16, 'X');
-break;
-}
-case 'o':
-{
-unsigned long int num = va_arg(substitutes, unsigned long int);
-*chars_printed = writeMe(&num, 8, 'o');
-break;
-}
-case 'p':
-{
-unsigned long int num = va_arg(substitutes, unsigned long int);
-*chars_printed = handleAddress(fmt, &num);
-break;
-}
-default:
-{
-write(1, "%", 1);
-write(1, fmt, 1);
-*chars_printed += 2;
-}
-}
-return (*chars_printed);
+	switch (*fmt)
+	{
+	case '%':
+		*charsPrinted += formatPercent();
+		break;
+	case 'c':
+		*charsPrinted = formatChar(substitutes);
+		break;
+	case 'b':
+	{
+		unsigned long int num = va_arg(substitutes, unsigned long int);
+		*charsPrinted = myBin(&num);
+		break;
+	}
+	case 's':
+		*charsPrinted = formatString(substitutes);
+		break;
+	case 'u':
+		*charsPrinted = formatUnsigned(substitutes);
+		break;
+	case 'd':
+	case 'i':
+		*charsPrinted = formatInt(substitutes);
+		break;
+	case 'f':
+	{
+		*charsPrinted += formatFloatingNumber(substitutes);
+		break;
+	}
+	default:
+		*charsPrinted = moreSwitchCases(substitutes, fmt, charsPrinted);
+	}
+	return (*charsPrinted);
 }
 
 /**
  * handleSCase - handles the S case
- * @fmt: format specifier
- * @chars_printed: number of characters printed
+ * @charsPrinted: number of characters printed
  * @substitutes: list of arguments
  * Return: number of characters printed
  */
 
-int handleSCase(char **fmt, int *chars_printed, va_list substitutes)
+int handleSCase(int *charsPrinted, va_list substitutes)
 {
-return (*chars_printed = handleCustomS(substitutes));
+	return (*charsPrinted = handleCustomS(substitutes));
 }
 
 /**
  * handleHashCase - handles the # case
  * @fmt: format specifier
- * @chars_printed: number of characters printed
+ * @charsPrinted: number of characters printed
  * @substitutes: list of arguments
  * Return: number of characters printed
  */
 
-int handleHashCase(char **fmt, int *chars_printed, va_list substitutes)
+int handleHashCase(const char **fmt, int *charsPrinted, va_list substitutes)
 {
-if (*(*fmt + 1) == 'x' || *(*fmt + 1) == 'X')
-{
-unsigned long int num = va_arg(substitutes, unsigned long int);
-*chars_printed = myHex(*fmt, &num);
-}
-else if (**fmt == 'o')
-{
-unsigned long int num = va_arg(substitutes, unsigned long int);
-*chars_printed = myOct(&num);
-}
-else
-stop("Invalid format specifier!");
+	if (*(*fmt + 1) == 'x' || *(*fmt + 1) == 'X')
+	{
+		unsigned long int num = va_arg(substitutes, unsigned long int);
+		*charsPrinted = myHex(*fmt, &num);
+	}
+	else if (**fmt == 'o')
+	{
+		unsigned long int num = va_arg(substitutes, unsigned long int);
+		*charsPrinted = myOct(&num);
+	}
+	else
+		stop("Invalid format specifier!");
 
-return (*chars_printed);
+	return (*charsPrinted);
+}
+
+/**
+ * moreSwitchCases - handles the rest of the format strings
+ * @substitutes: va_list to be inserted
+ * @fmt: format string
+ * @charsPrinted: number of characters printed
+ * Return: the number of characters printed
+ */
+int moreSwitchCases(va_list substitutes, const char *fmt, int *charsPrinted)
+{
+	long int num;
+
+	switch (*fmt)
+	{
+	case 'X':
+	case 'x': {
+	if (*fmt == 'x')
+	{
+		num = va_arg(substitutes, long int);
+		*charsPrinted += writeMe(&num, 16, 'x');
+		break;
+	}
+		num = va_arg(substitutes,  long int);
+		*charsPrinted = writeMe(&num, 16, 'X');
+		break;
+	}
+	case 'o':
+	{
+		num = va_arg(substitutes, long int);
+		*charsPrinted = writeMe(&num, 8, 'o');
+		break;
+	}
+	case 'p':
+	{
+		num = va_arg(substitutes, long int);
+		*charsPrinted = handleAddress(&num);
+		break;
+	}
+	default:
+	{
+		write(1, "%", 1);
+		write(1, fmt, 1);
+		*charsPrinted += 2;
+	}
+	}
+	return (*charsPrinted);
 }

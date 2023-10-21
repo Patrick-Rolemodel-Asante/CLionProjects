@@ -3,21 +3,21 @@
 /**
 * validate - validates the format specifier
 * @fmt: format specifier
-* @chars_printed: number of characters printed
+* @charsPrinted: number of characters printed
 * @substitutes: list of arguments
 * Return: number of characters printed
 */
 
 
-int validate(char *fmt, int *chars_printed, va_list substitutes)
+int validate(const char *fmt, int *charsPrinted, va_list substitutes)
 {
-check_errors(fmt);
-if (*fmt == 'l' && *(fmt + 1) == 'f')
-return (handleLfCase(&fmt, chars_printed, substitutes));
-else if (*fmt == '#')
-return (handleHashCase(&fmt, chars_printed, substitutes));
-else if (*fmt == 'S')
-return (handleSCase(&fmt, chars_printed, substitutes));
-else
-return (handleSwitchCases(fmt, chars_printed, substitutes));
+	checkErrors(fmt);
+	if (*fmt == 'l' && *(fmt + 1) == 'f')
+		return (handleLfCase(charsPrinted, substitutes));
+	else if (*fmt == '#')
+		return (handleHashCase(&fmt, charsPrinted, substitutes));
+	else if (*fmt == 'S')
+		return (handleSCase(charsPrinted, substitutes));
+	else
+		return (handleSwitchCases(fmt, charsPrinted, substitutes));
 }

@@ -103,6 +103,12 @@ build CMakeFiles/MyPrintf.dir/help_validate_function.c.o: C_COMPILER__MyPrintf_u
   OBJECT_DIR = CMakeFiles/MyPrintf.dir
   OBJECT_FILE_DIR = CMakeFiles/MyPrintf.dir
 
+build CMakeFiles/MyPrintf.dir/handlefloatNumbers.c.o: C_COMPILER__MyPrintf_unscanned_Debug /home/rol/CLionProjects/MyPrintf/handlefloatNumbers.c || cmake_object_order_depends_target_MyPrintf
+  DEP_FILE = CMakeFiles/MyPrintf.dir/handlefloatNumbers.c.o.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/MyPrintf.dir
+  OBJECT_FILE_DIR = CMakeFiles/MyPrintf.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target MyPrintf
@@ -111,7 +117,7 @@ build CMakeFiles/MyPrintf.dir/help_validate_function.c.o: C_COMPILER__MyPrintf_u
 #############################################
 # Link the executable MyPrintf
 
-build MyPrintf: C_EXECUTABLE_LINKER__MyPrintf_Debug CMakeFiles/MyPrintf.dir/test/main.c.o CMakeFiles/MyPrintf.dir/printf-errors.c.o CMakeFiles/MyPrintf.dir/_printf.c.o CMakeFiles/MyPrintf.dir/custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/other_helpers.c.o CMakeFiles/MyPrintf.dir/non-custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/control-printf.c.o CMakeFiles/MyPrintf.dir/other-custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/help_validate_function.c.o
+build MyPrintf: C_EXECUTABLE_LINKER__MyPrintf_Debug CMakeFiles/MyPrintf.dir/test/main.c.o CMakeFiles/MyPrintf.dir/printf-errors.c.o CMakeFiles/MyPrintf.dir/_printf.c.o CMakeFiles/MyPrintf.dir/custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/other_helpers.c.o CMakeFiles/MyPrintf.dir/non-custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/control-printf.c.o CMakeFiles/MyPrintf.dir/other-custom-conversion-specifiers.c.o CMakeFiles/MyPrintf.dir/help_validate_function.c.o CMakeFiles/MyPrintf.dir/handlefloatNumbers.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/MyPrintf.dir
   POST_BUILD = :

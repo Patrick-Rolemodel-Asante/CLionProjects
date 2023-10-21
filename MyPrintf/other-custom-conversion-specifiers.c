@@ -2,26 +2,28 @@
 
 /**
 * handleAddress - handles the custom specifier 'p'
-* @fmt: format specifier
 * @num: the number to convert
 *
 * Return: the number of characters printed
 */
 
-int handleAddress(char *fmt, unsigned long *num)
+int handleAddress(const long *num)
 {
-char *new_num = changeToBaseN(*num, 16);
+	char *newNum = changeToBaseN(*num, 16);
 
-if (!new_num)
-stop("Memory allocation error");
+	if (!newNum)
+		stop("Memory allocation error");
 
-char prefix_low[300] = "0x";
-lowerCase(new_num);
-write(1, prefix_low, strlen(prefix_low));
-write(1, new_num, strlen(new_num));
-int total_length = (int) (strlen(prefix_low) + strlen(new_num));
-free(new_num);
-return (total_length);
+	char prefixLow[300] = "0x";
+
+	lowerCase(newNum);
+	write(1, prefixLow, strlen(prefixLow));
+	write(1, newNum, strlen(newNum));
+
+	int totalLength = (int) (strlen(prefixLow) + strlen(newNum));
+
+	free(newNum);
+	return (totalLength);
 
 }
 
@@ -35,40 +37,40 @@ return (total_length);
 
 int handleCustomS(va_list substitutes)
 {
-char *str = va_arg(substitutes, char *);
-int len = 0;
-int i;
-char *hex;
-char *temp;
-char *temp2;
+	char *str = va_arg(substitutes, char *); /* get the string */
+	int len = 0; /* length of the string */
+	int i;
+	char *hex;
+	char *temp;
+	char *temp2;
 
-if (str == NULL)
-str = "(null)";
-for (i = 0; str[i]; i++)
-if (str[i] < 32 || str[i] >= 127)
-len += 4;
-else
-len++;
-temp = malloc(sizeof(char) * (len + 1));
-temp2 = temp;
-for (i = 0; str[i]; i++)
-{
-if (str[i] < 32 || str[i] >= 127)
-{
-*temp++ = '\\';
-*temp++ = 'x';
-hex = convertToHex(str[i]);
-*temp++ = hex[0];
-*temp++ = hex[1];
-free(hex);
-}
-else
-*temp++ = str[i];
-}
-*temp = '\0';
-len = write(1, temp2, len);
-free(temp2);
-return (len);
+	if (str == NULL)
+		str = "(null)";
+	for (i = 0; str[i]; i++)
+		if (str[i] < 32 || str[i] >= 127)
+			len += 4;
+		else
+			len++;
+	temp = malloc(sizeof(char) * (len + 1));
+	temp2 = temp;
+	for (i = 0; str[i]; i++)
+	{
+		if (str[i] < 32 || str[i] >= 127)
+		{
+			*temp++ = '\\';
+			*temp++ = 'x';
+			hex = convertToHex(str[i]);
+			*temp++ = hex[0];
+			*temp++ = hex[1];
+			free(hex);
+		}
+		else
+			*temp++ = str[i];
+	}
+	*temp = '\0';
+	len = write(1, temp2, len);
+	free(temp2);
+	return (len);
 }
 
 /**
@@ -80,60 +82,57 @@ return (len);
 
 char *convertToHex(int num)
 {
-int i;
-char *hex = malloc(sizeof(char) * 3);
+	int i;
+	char *hex = malloc(sizeof(char) * 3);
 
-for (i = 1; i >= 0; i--)
-{
-if (num % 16 > 9)
-hex[i] = (num % 16) + 55;
-else
-hex[i] = (num % 16) + '0';
-num /= 16;
-}
-return (hex);
+	for (i = 1; i >= 0; i--)
+	{
+		if (num % 16 > 9)
+			hex[i] = (num % 16) + 55;
+		else
+			hex[i] = (num % 16) + '0';
+		num /= 16;
+	}
+	return (hex);
 }
 
 /**
-* format_PERCENT - prints a percent sign
-* @empty: list of arguments
+* formatPercent - prints a percent sign
 * Return: number of characters printed
 */
 
-int format_PERCENT(va_list empty)
+int formatPercent(void)
 {
-write(1, "%", 1);
-return (1);
+	write(1, "%", 1);
+	return (1);
 }
 
 /**
-* format_UNSIGNED - prints an unsigned integer
+* formatUnsigned - prints an unsigned integer
 * @args: list of arguments
 * Return: number of characters printed
 */
 
-int format_UNSIGNED(va_list args)
+int formatUnsigned(va_list args)
 {
-unsigned int arg = va_arg(args, unsigned int);
+	unsigned int arg = va_arg(args, unsigned int);
 
-char int_str[32];
-int int_len = 0;
+	char int_str[32];
+	int int_len = 0;
 
-if (arg == 0)
-int_str[int_len++] = '0';
-else
-{
-while (arg > 0 && int_len < 32)
-{
-int_str[int_len++] = '0' + (arg % 10);
-arg /= 10;
-}
-}
+	if (arg == 0)
+		int_str[int_len++] = '0';
+	else
+	{
+		while (arg > 0 && int_len < 32)
+		{
+			int_str[int_len++] = '0' + (arg % 10);
+			arg /= 10;
+		}
+	}
 
-for (int i = int_len - 1; i >= 0; i--)
-{
-write(1, &int_str[i], 1);
-}
+	for (int i = int_len - 1; i >= 0; i--)
+		write(1, &int_str[i], 1);
 
-return (int_len);
+	return (int_len);
 }

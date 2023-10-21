@@ -8,22 +8,22 @@
 */
 void stop(const char *str)
 {
-perror(str);
-exit(EXIT_FAILURE);
+	perror(str);
+	exit(EXIT_FAILURE);
 }
 
 /**
-* check_errors - checks for errors in the format string
+* checkErrors - checks for errors in the format string
 * @fmt: the format string
 *
 * Return: nothing
 */
-void check_errors(const char *fmt)
+void checkErrors(const char *fmt)
 {
-if (fmt == NULL)
-stop("format string is NULL");
-if (strlen(fmt) == 0)
-stop("format string is empty");
-if (fmt[0] == '%' && fmt[1] == '\0')
-stop("invalid format string");
+	if (fmt == NULL)
+		stop("format string is NULL");
+	if (strlen(fmt) == 0)
+		stop("format string is empty");
+	if (fmt[0] == '%' && fmt[1] == '\0')
+		stop("invalid format string");
 }

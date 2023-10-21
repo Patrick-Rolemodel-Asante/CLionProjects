@@ -13,5 +13,6 @@ add_executable(MyPrintf test/main.c
         control-printf.c
         other-custom-conversion-specifiers.c
         help_validate_function.c
+        handlefloatNumbers.c
 
 )

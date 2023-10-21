@@ -2,32 +2,33 @@
 /**
 * changeToBaseN - changes a num to new base
 * @num: the number to be changed
-* @new_base: the base to change to
+* @newBase: the base to change to
 * Return: new num in new base
 */
-char  *changeToBaseN(unsigned long int num, int new_base)
+char  *changeToBaseN(unsigned long int num, int newBase)
 {
-char all_nums[] = "0123456789ABCDEF";
-char *res;
+	char allNums[] = "0123456789ABCDEF";
+	char *res;
 
-if (num < new_base)
-{
-res = malloc(2);
-res[0] = all_nums[num];
-res[1] = '\0';
-}
-else
-{
-char *rem = changeToBaseN(num / new_base, new_base);
-unsigned int len = strlen(rem);
-res = malloc(len + 2);
-strcpy(res, rem);
-res[len] = all_nums[num % new_base];
-res[len + 1] = '\0';
-free(rem);
-}
+	if (num < newBase)
+	{
+		res = malloc(2);
+		res[0] = allNums[num];
+		res[1] = '\0';
+	}
+	else
+	{
+		char *rem = changeToBaseN(num / newBase, newBase);
+		unsigned int len = strlen(rem);
 
-return (res);
+		res = malloc(len + 2);
+		strcpy(res, rem);
+		res[len] = allNums[num % newBase];
+		res[len + 1] = '\0';
+		free(rem);
+	}
+
+	return (res);
 }
 
 
@@ -37,12 +38,12 @@ return (res);
 * Return: number of characters printed
 */
 
-int myBin(unsigned long *num)
+int myBin(const unsigned long *num)
 {
-char *new_num = changeToBaseN(*num, 2);
-write(1, new_num, strlen(new_num));
-free(new_num);
-return ((int) strlen(new_num));
+	char *newNum = changeToBaseN(*num, 2);
+
+	write(1, newNum, strlen(newNum));
+	return ((int) strlen(newNum));
 }
 
 
@@ -52,30 +53,33 @@ return ((int) strlen(new_num));
 * @num: number to convert
 * Return: number of characters printed
 */
-int myHex(char *fmt, unsigned long *num)
+int myHex(const char *fmt, const unsigned long *num)
 {
-char *new_num = changeToBaseN(*num, 16);
+	char *newNum = changeToBaseN(*num, 16);
 
-if (!new_num)
-stop("Memory allocation error");
+	if (!newNum)
+		stop("Memory allocation error");
 
-if (*fmt == 'x')
-{
-char prefix_low[300] = "0x";
-lowerCase(new_num);
-write(1, prefix_low, strlen(prefix_low));
-write(1, new_num, strlen(new_num));
-int total_length = (int) (strlen(prefix_low) + strlen(new_num));
-free(new_num);
-return (total_length);
-}
+	if (*fmt == 'x')
+	{
+		char prefixLow[300] = "0x";
 
-char prefix_upp[300] = "0X";
-strncat(prefix_upp, new_num, strlen(new_num));
-write(1, prefix_upp, strlen(prefix_upp));
-int total_length = (int) strlen(prefix_upp);
-free(new_num);
-return (total_length - 1);
+		lowerCase(newNum);
+		write(1, prefixLow, strlen(prefixLow));
+		write(1, newNum, strlen(newNum));
+		int totalLength = (int) (strlen(prefixLow) + strlen(newNum));
+
+		free(newNum);
+		return (totalLength);
+	}
+	char prefixUpp[300] = "0X";
+
+	strncat(prefixUpp, newNum, strlen(newNum));
+	write(1, prefixUpp, strlen(prefixUpp));
+	int totalLength = (int) strlen(prefixUpp);
+
+	free(newNum);
+	return (totalLength - 1);
 }
 
 
@@ -84,15 +88,17 @@ return (total_length - 1);
 * @num: number to convert
 * Return: number of characters printed
 */
-int myOct(unsigned long *num)
+int myOct(const unsigned long *num)
 {
-char *newNum = changeToBaseN(*num, 8);
-char prefixUpp[300] = "0";
-strncat(prefixUpp, newNum, strlen(newNum) + 2);
-write(1, prefixUpp, strlen(prefixUpp));
+	char *newNum = changeToBaseN(*num, 8);
 
-free(newNum);
-return ((int) (strlen(prefixUpp) - 1));
+	char prefixUpp[300] = "0";
+
+	strncat(prefixUpp, newNum, strlen(newNum) + 2);
+	write(1, prefixUpp, strlen(prefixUpp));
+
+	free(newNum);
+	return ((int) (strlen(prefixUpp) - 1));
 }
 
 
@@ -103,14 +109,17 @@ return ((int) (strlen(prefixUpp) - 1));
 * @letter: letter to use
 * Return: number of characters printed
 */
-int writeMe(unsigned long *num, int base, char letter)
+int writeMe(const long *num, int base, char letter)
 {
-char *newNum = changeToBaseN(*num, base);
-if (letter == 'x')
-lowerCase(newNum);
-int newNumLen = (int) (strlen(newNum));
-write(1, newNum, newNumLen);
+	char *newNum = changeToBaseN(*num, base);
 
-free(newNum);
-return (newNumLen);
+	if (letter == 'x')
+		lowerCase(newNum);
+
+	int newNumLen = (int) (strlen(newNum));
+
+	write(1, newNum, newNumLen);
+
+	free(newNum);
+	return (newNumLen);
 }
